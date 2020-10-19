@@ -9,6 +9,10 @@
 ```bash
 npm install --save react-json-schema-builder
 ```
+or 
+```bash
+yarn add react-json-schema-builder
+```
 
 ## Usage
 

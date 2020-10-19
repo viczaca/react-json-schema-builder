@@ -1,10 +1,13 @@
 import React from 'react'
 
-import { ExampleComponent } from 'react-json-schema-builder'
+import { JSONSchemaBuilder } from 'react-json-schema-builder'
 import 'react-json-schema-builder/dist/index.css'
+import schema from './schema.json'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <div className="flex justify-center items-center">
+    <JSONSchemaBuilder schema={schema} />
+  </div>
 }
 
 export default App
