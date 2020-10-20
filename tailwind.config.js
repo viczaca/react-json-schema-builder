@@ -333,9 +333,9 @@ module.exports = {
       decimal: 'decimal'
     },
     maxHeight: (theme) => ({
-      full: "100%",
-      screen: "100vh",
-      ...theme('spacing'),
+      full: '100%',
+      screen: '100vh',
+      ...theme('spacing')
     }),
     minHeight: {
       0: '0',
