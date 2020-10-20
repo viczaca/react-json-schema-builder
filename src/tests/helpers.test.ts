@@ -1,6 +1,18 @@
 import * as helpers from '../utils/helpers'
 
 describe('schema', () => {
+  test('get schema field', () => {
+    const desc = 'Something description'
+    const schema = {
+      type: 'string',
+      description: desc
+    }
+
+    const result = helpers.getSchemaField('description', schema)
+
+    expect(result).toBe(desc)
+  })
+
   test('get schema type', () => {
     const schema = {
       type: 'string'
@@ -66,6 +78,18 @@ describe('schema', () => {
     const result = helpers.getSchemaItems(schema)
 
     expect(result).toEqual(items)
+  })
+
+  test('set schema field', () => {
+    const desc = "Something description"
+    const schema = {
+      type: 'string',
+      description: 'Desc'
+    }
+
+    const result = helpers.setSchemaField('description', desc, schema)
+
+    expect(helpers.getSchemaField('description', result)).toBe(desc)
   })
 
   test('set schema type', () => {
