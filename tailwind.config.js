@@ -276,6 +276,7 @@ module.exports = {
       ]
     },
     fontSize: {
+      '2xs': '0.5rem',
       xs: '0.75rem',
       sm: '0.875rem',
       base: '1rem',
@@ -331,10 +332,11 @@ module.exports = {
       disc: 'disc',
       decimal: 'decimal'
     },
-    maxHeight: {
-      full: '100%',
-      screen: '100vh'
-    },
+    maxHeight: (theme) => ({
+      full: "100%",
+      screen: "100vh",
+      ...theme('spacing'),
+    }),
     minHeight: {
       0: '0',
       full: '100%',
@@ -662,7 +664,7 @@ module.exports = {
     borderOpacity: ['responsive', 'hover', 'focus'],
     borderRadius: ['responsive'],
     borderStyle: ['responsive'],
-    borderWidth: ['responsive'],
+    borderWidth: ['responsive', 'focus'],
     boxShadow: ['responsive', 'hover', 'focus'],
     boxSizing: ['responsive'],
     container: ['responsive'],
