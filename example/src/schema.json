@@ -10,6 +10,12 @@
     },
     "lastName": {
       "type": "string"
+    },
+    "hobbies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   }
 }

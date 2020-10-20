@@ -54,6 +54,20 @@ describe('schema', () => {
     expect(result).toEqual(properties)
   })
 
+  test('get schema items', () => {
+    const items = {
+      type: 'string'
+    }
+    const schema = {
+      type: 'array',
+      items: items
+    }
+
+    const result = helpers.getSchemaItems(schema)
+
+    expect(result).toEqual(items)
+  })
+
   test('set schema type', () => {
     const schema = {
       type: 'string'
@@ -122,8 +136,7 @@ describe('schema', () => {
   test('add schema property', () => {
     const schemaBefore = {
       type: 'object',
-      properties: {
-      }
+      properties: {}
     }
 
     const result = helpers.addSchemaProperty(schemaBefore)
@@ -166,16 +179,12 @@ describe('schema', () => {
     })
     const result_2 = helpers.hasSchemaProperties({
       type: 'object',
-      properties: {
-      }
+      properties: {}
     })
-
 
     expect(result_1).toBe(true)
     expect(result_2).toBe(false)
   })
-
-  
 })
 
 describe('common', () => {
