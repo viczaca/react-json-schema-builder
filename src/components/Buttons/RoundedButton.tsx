@@ -10,7 +10,8 @@ const RoundedButton: React.FunctionComponent<Props> = ({ onClick, className='', 
   return (
     <button
       onClick={onClick}
-      className={`flex items-center focus:outline-none text-xs justify-center shadow w-6 h-6 rounded-full ${className}`}
+      className={`flex items-center border focus:outline-none focus:shadow-outline-blue 
+      focus:border-blue-500 text-xs justify-center shadow w-6 h-6 rounded-full ${className}`}
     >
       {children}
     </button>

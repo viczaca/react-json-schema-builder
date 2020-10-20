@@ -1,13 +1,12 @@
 import React from 'react'
-import Select from 'react-select'
 import _ from 'lodash/fp'
 
-import Input from '../Input/Input'
 import { Schema, SchemaType } from '../../types'
-import { schemaTypes } from './constants'
 import * as helpers from '../../utils/helpers'
-import DeleteButton from '../Buttons/DeleteButton'
-import AddButton from '../Buttons/AddButton'
+import { AddButton } from '../Buttons'
+import { SchemaTypesSelect } from '../Select'
+import { SchemaBox } from '../SchemaBox'
+import SchemaControls from './SchemaControls'
 
 type Props = {
   schema: Schema
@@ -18,85 +17,156 @@ type Props = {
 
 const SchemaCreator: React.FunctionComponent<Props> = ({
   schema,
-  onChange,
-  onDelete,
-  schemakey='__root__'
+  onChange = _.noop,
+  onDelete = _.noop,
+  schemakey = '__root__'
 }: Props) => {
-  const updateTitle = (title: string) => {
-    if (!onChange) return
-
-    onChange(helpers.setSchemaTitle(title, schema))
+  const onChangeSchemaField = (key: string, value: unknown) => {
+    onChange(helpers.setSchemaField(key, value, schema))
   }
 
-  const updateType = (type: SchemaType) => {
-    if (!onChange) return
-
-    onChange(helpers.setSchemaType(type, schema))
-  }
-
-  const deleteSchema = () => {
-    if(!onDelete || schemakey === '__root__') return
-
+  const onDeleteSchema = () => {
     onDelete(schemakey)
   }
 
-  const addObjectProperty = () => {
-    if(!onChange || !helpers.isSchemaObject(schema)) return
-
+  const onAddObjectProperty = () => {
     onChange(helpers.addSchemaProperty(schema))
   }
 
-  const onDeleteObjectChildren = (key: string) => {
-    if(!onChange) return
+  const onChangeArrayChildren = (subSchema: Schema) => {
+    onChange(helpers.setSchemaItems(subSchema, schema))
+  }
 
+  const onDeleteObjectChildren = (key: string) => {
     onChange(helpers.deleteSchemaProperty(key)(schema))
   }
 
   const onChangeObjectChildren = (key: string, subSchema: Schema) => {
-    if (!onChange) return
-
     onChange(helpers.setSchemaProperty(key)(subSchema, schema))
   }
 
   return (
-    <div className='grid gap-2'>
-      <div className='grid gap-2 grid-flow-col items-center'>
-        <Input
-          value={schema.title as SchemaType}
-          onChange={updateTitle}
-          placeholder='Title'
-        ></Input>
-        <Select
-          className='w-48 shadow rounded border-gray-300 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300'
-          options={schemaTypes}
-          defaultValue={helpers.findOption(helpers.getSchemaType(schema))(
-            schemaTypes
-          )}
-          onChange={(option: any) => updateType(option.value as SchemaType)}
-          placeholder='Type'
-        />
-        <div className='grid grid-flow-col items-center gap-1'>
-          {schemakey !== '__root__' && <DeleteButton onClick={deleteSchema} />}
-          {helpers.isSchemaObject(schema) && (
-            <AddButton onClick={addObjectProperty} />
-          )}
-        </div>
-      </div>
+    <div>
+      <SchemaControls
+        schema={schema}
+        onAdd={helpers.isSchemaObject(schema) ? onAddObjectProperty : undefined}
+        onDelete={schemakey !== '__root__' ? onDeleteSchema : undefined}
+        onChange={onChangeSchemaField}
+      />
       {helpers.isSchemaObject(schema) && helpers.hasSchemaProperties(schema) && (
-        <div className='grid gap-2 border-l-2 border-blue-400 pl-2'>
-          {_.entries(helpers.getSchemaProperties(schema)).map(([key, s]) => (
-            <SchemaCreator
-              schema={s as Schema}
-              key={key}
-              schemakey={key}
-              onDelete={onDeleteObjectChildren}
-              onChange={(newSchema) => onChangeObjectChildren(key, newSchema)}
-            />
-          ))}
-        </div>
+        <SchemaBox>
+          <SchemaObjectProperties
+            onDelete={onDeleteObjectChildren}
+            onChange={onChangeObjectChildren}
+            properties={_.entries(helpers.getSchemaProperties(schema))}
+          />
+        </SchemaBox>
+      )}
+      {helpers.isSchemaArray(schema) && (
+        <SchemaBox>
+          <SchemaArrayItems
+            schema={helpers.getSchemaItems(schema)}
+            onChange={onChangeArrayChildren}
+          />
+        </SchemaBox>
       )}
     </div>
   )
 }
 
 export default SchemaCreator
+
+type ArrayProps = {
+  schema: Schema
+  onChange: (schema: Schema) => void
+}
+
+const SchemaArrayItems: React.FunctionComponent<ArrayProps> = ({
+  schema,
+  onChange
+}: ArrayProps) => {
+  const onChangeType = (type: SchemaType) => {
+    onChange(helpers.setSchemaType(type, schema))
+  }
+
+  const onChangeArrayChildren = (subSchema: Schema) => {
+    if (!helpers.isSchemaArray(schema)) return
+
+    onChange(helpers.setSchemaItems(subSchema, schema))
+  }
+
+  const onAddObjectProperty = () => {
+    if (!helpers.isSchemaObject(schema)) return
+
+    onChange(helpers.addSchemaProperty(schema))
+  }
+
+  const onDeleteObjectChildren = (key: string) => {
+    onChange(helpers.deleteSchemaProperty(key)(schema))
+  }
+
+  const onChangeObjectChildren = (key: string, subSchema: Schema) => {
+    onChange(helpers.setSchemaProperty(key)(subSchema, schema))
+  }
+
+  return (
+    <div>
+      <div className='flex items-center'>
+        <label className='mr-2'>Items</label>
+        <SchemaTypesSelect
+          type={helpers.getSchemaType(schema)}
+          onChange={onChangeType}
+        />
+        <div className='ml-2 grid grid-flow-col items-center gap-1'>
+          {helpers.isSchemaObject(schema) && (
+            <AddButton onClick={onAddObjectProperty} />
+          )}
+        </div>
+      </div>
+      {helpers.isSchemaObject(schema) && helpers.hasSchemaProperties(schema) && (
+        <div className='mt-2'>
+          <SchemaObjectProperties
+            onDelete={onDeleteObjectChildren}
+            onChange={onChangeObjectChildren}
+            properties={_.entries(helpers.getSchemaProperties(schema))}
+          />
+        </div>
+      )}
+      {helpers.isSchemaArray(schema) && (
+        <SchemaBox>
+          <SchemaArrayItems
+            schema={helpers.getSchemaItems(schema)}
+            onChange={onChangeArrayChildren}
+          />
+        </SchemaBox>
+      )}
+    </div>
+  )
+}
+
+type ObjectProps = {
+  properties: [string, Schema][]
+  onDelete: (key: string) => void
+  onChange: (key: string, schema: Schema) => void
+}
+
+const SchemaObjectProperties: React.FunctionComponent<ObjectProps> = ({
+  properties,
+  onDelete,
+  onChange
+}: ObjectProps) => {
+  return (
+    <ul className='grid gap-2 '>
+      {properties.map(([key, s]) => (
+        <li key={key}>
+          <SchemaCreator
+            schema={s}
+            schemakey={key}
+            onDelete={onDelete}
+            onChange={(newSchema) => onChange(key, newSchema)}
+          />
+        </li>
+      ))}
+    </ul>
+  )
+}
