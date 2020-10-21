@@ -1,8 +1,8 @@
 import React from 'react'
 import Select from 'react-select'
-import { SchemaType } from '../../types'
-import { schemaTypes } from './constants'
+import { schemaTypes } from '../../utils/constants'
 import * as helpers from '../../utils/helpers'
+import { SchemaType } from '../../utils/types'
 
 type Props = {
   type: SchemaType,

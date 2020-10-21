@@ -2,7 +2,7 @@ import React from 'react'
 import _ from 'lodash/fp'
 
 import {SchemaCreator} from '../SchemaCreator'
-import { Schema } from '../../types'
+import { Schema } from '../../utils/types'
 
 type Props = {
   schema: Schema
