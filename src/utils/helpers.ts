@@ -1,14 +1,19 @@
 import _ from 'lodash/fp'
 import { Schema} from '../types'
 
-export const getSchemaType = _.get(['type'])
-export const getSchemaTitle = _.get(['title'])
-export const getSchemaProperties = _.get(['properties'])
-export const getSchemaProperty = (key: string) => _.get(['properties', key])
+export const getSchemaField = _.get
+export const getSchemaType = getSchemaField('type')
+export const getSchemaTitle = getSchemaField('title')
+export const getSchemaProperty = (key: string) => getSchemaField(['properties', key])
+export const getSchemaProperties = getSchemaField('properties')
+export const getSchemaItems = getSchemaField('items')
 
-export const setSchemaType = _.set(['type'])
-export const setSchemaTitle = _.set(['title'])
-export const setSchemaProperty = (key: string) => _.set(['properties', key])
+export const setSchemaField = _.set
+export const setSchemaType = setSchemaField('type')
+export const setSchemaTitle = setSchemaField('title')
+export const setSchemaProperty = (key: string) => setSchemaField(['properties', key])
+export const setSchemaItems = setSchemaField('items')
+
 
 export const deleteSchemaProperty = (key: string) => _.omit([`properties.${key}`])
 export const addSchemaProperty = (schema: Schema) => setSchemaProperty(`__${Date.now()}__`)({}, schema)

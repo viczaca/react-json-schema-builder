@@ -1,6 +1,18 @@
 import * as helpers from '../utils/helpers'
 
 describe('schema', () => {
+  test('get schema field', () => {
+    const desc = 'Something description'
+    const schema = {
+      type: 'string',
+      description: desc
+    }
+
+    const result = helpers.getSchemaField('description', schema)
+
+    expect(result).toBe(desc)
+  })
+
   test('get schema type', () => {
     const schema = {
       type: 'string'
@@ -52,6 +64,32 @@ describe('schema', () => {
     const result = helpers.getSchemaProperties(schema)
 
     expect(result).toEqual(properties)
+  })
+
+  test('get schema items', () => {
+    const items = {
+      type: 'string'
+    }
+    const schema = {
+      type: 'array',
+      items: items
+    }
+
+    const result = helpers.getSchemaItems(schema)
+
+    expect(result).toEqual(items)
+  })
+
+  test('set schema field', () => {
+    const desc = "Something description"
+    const schema = {
+      type: 'string',
+      description: 'Desc'
+    }
+
+    const result = helpers.setSchemaField('description', desc, schema)
+
+    expect(helpers.getSchemaField('description', result)).toBe(desc)
   })
 
   test('set schema type', () => {
@@ -122,8 +160,7 @@ describe('schema', () => {
   test('add schema property', () => {
     const schemaBefore = {
       type: 'object',
-      properties: {
-      }
+      properties: {}
     }
 
     const result = helpers.addSchemaProperty(schemaBefore)
@@ -166,16 +203,12 @@ describe('schema', () => {
     })
     const result_2 = helpers.hasSchemaProperties({
       type: 'object',
-      properties: {
-      }
+      properties: {}
     })
-
 
     expect(result_1).toBe(true)
     expect(result_2).toBe(false)
   })
-
-  
 })
 
 describe('common', () => {
