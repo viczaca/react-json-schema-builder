@@ -19,13 +19,21 @@ const SchemaCreator: React.FunctionComponent<Props> = ({
   onDelete = _.noop,
   schemakey = '__root__'
 }: Props) => {
+  const [isCollapsed, setIsCollapsed] = React.useState<boolean>(false)
+
   return (
     <div>
       <SchemaControls
         schema={schema}
+        isCollapsed={isCollapsed}
         onAdd={
           helpers.isSchemaObject(schema)
             ? () => onChange(helpers.addSchemaProperty(schema))
+            : undefined
+        }
+        onCollapse={
+          helpers.isSchemaObject(schema) || helpers.isSchemaArray(schema)
+            ? () => setIsCollapsed((c) => !c)
             : undefined
         }
         onDelete={
@@ -33,27 +41,29 @@ const SchemaCreator: React.FunctionComponent<Props> = ({
         }
         onChange={onChange}
       />
-      {helpers.isSchemaObject(schema) && helpers.hasSchemaProperties(schema) && (
-        <SchemaBox>
-          <SchemaObjectProperties
-            onDelete={(key) =>
-              onChange(helpers.deleteSchemaProperty(key)(schema))
-            }
-            onChange={(key, s) =>
-              onChange(helpers.setSchemaProperty(key)(s, schema))
-            }
-            properties={_.entries(helpers.getSchemaProperties(schema))}
-          />
-        </SchemaBox>
-      )}
-      {helpers.isSchemaArray(schema) && (
-        <SchemaBox>
-          <SchemaArrayItems
-            schema={helpers.getSchemaItems(schema)}
-            onChange={(s) => onChange(helpers.setSchemaItems(s, schema))}
-          />
-        </SchemaBox>
-      )}
+      <div style={{display: `${isCollapsed ? 'none': 'block'}`}}>
+        {helpers.isSchemaObject(schema) && helpers.hasSchemaProperties(schema) && (
+          <SchemaBox>
+            <SchemaObjectProperties
+              onDelete={(key) =>
+                onChange(helpers.deleteSchemaProperty(key)(schema))
+              }
+              onChange={(key, s) =>
+                onChange(helpers.setSchemaProperty(key)(s, schema))
+              }
+              properties={_.entries(helpers.getSchemaProperties(schema))}
+            />
+          </SchemaBox>
+        )}
+        {helpers.isSchemaArray(schema) && (
+          <SchemaBox>
+            <SchemaArrayItems
+              schema={helpers.getSchemaItems(schema)}
+              onChange={(s) => onChange(helpers.setSchemaItems(s, schema))}
+            />
+          </SchemaBox>
+        )}
+      </div>
     </div>
   )
 }

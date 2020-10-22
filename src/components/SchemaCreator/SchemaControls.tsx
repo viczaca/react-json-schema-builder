@@ -5,33 +5,39 @@ import { Input } from '../Input'
 import { SchemaTypesSelect } from '../Select'
 import * as helpers from '../../utils/helpers'
 import { Schema } from '../../utils/types'
-import { AddButton, DeleteButton } from '../Buttons'
+import { AddButton, CollapseButton, DeleteButton } from '../Buttons'
 
 type Props = {
   schema: Schema
+  isCollapsed?: boolean
   onDelete?: () => void
   onAdd?: () => void
+  onCollapse?: () => void
   onChange: (schema: Schema) => void
 }
 
 export const SchemaControls: React.FunctionComponent<Props> = ({
   schema,
+  isCollapsed,
   onDelete,
   onChange,
-  onAdd
+  onAdd,
+  onCollapse
 }: Props) => {
+
   return (
     <div className='grid gap-2 grid-flow-col items-center'>
       <Input
         value={helpers.getSchemaTitle(schema)}
         onChange={(t) => onChange(helpers.setSchemaTitle(t, schema))}
         placeholder='Title'
-      />
+        />
       <SchemaTypesSelect
         type={helpers.getSchemaType(schema)}
         onChange={(t) => onChange(helpers.setSchemaType(t, schema))}
-      />
+        />
       <div className='grid grid-flow-col items-center gap-1'>
+        {_.isFunction(onCollapse) && <CollapseButton onClick={onCollapse} isCollapsed={isCollapsed}/>}
         {_.isFunction(onDelete) && <DeleteButton onClick={onDelete} />}
         {_.isFunction(onAdd) && <AddButton onClick={onAdd} />}
       </div>
