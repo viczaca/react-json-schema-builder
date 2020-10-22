@@ -41,7 +41,7 @@ export const stringSchemaOptions: StringSchemaFieldOption[] = [
   { value: 'description', label: 'Description', type: 'text' },
   { value: 'minLength', label: 'Min Length', type: 'number' },
   { value: 'maxLength', label: 'Max Length', type: 'number' },
-  { value: 'enum', label: 'Options', type: 'creatable_multi_select' },
+  { value: 'enum', label: 'Options', type: 'multi_creatable' },
 ]
 
 export const numberSchemaOptions: NumberSchemaFieldOption[] = [
