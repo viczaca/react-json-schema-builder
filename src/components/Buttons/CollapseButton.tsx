@@ -1,23 +1,25 @@
 import React from 'react'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faChevronRight, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import RoundedButton from './RoundedButton'
 
+
 type Props = {
   onClick: () => void
+  isCollapsed?: boolean
   title?: string
 }
 
-const AddButton: React.FunctionComponent<Props> = ({ onClick, title }: Props) => {
+const CollapseButton: React.FunctionComponent<Props> = ({isCollapsed=false, onClick, title}: Props) => {
   return (
     <RoundedButton
       onClick={onClick}
       title={title}
       className='text-white bg-blue-500 hover:bg-blue-700'
     >
-      <FontAwesomeIcon icon={faPlus} />
+      <FontAwesomeIcon icon={isCollapsed ? faChevronRight : faChevronDown} />
     </RoundedButton>
   )
 }
 
-export default AddButton
+export default CollapseButton
