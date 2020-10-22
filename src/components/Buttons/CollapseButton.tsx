@@ -15,7 +15,7 @@ const CollapseButton: React.FunctionComponent<Props> = ({isCollapsed=false, onCl
     <RoundedButton
       onClick={onClick}
       title={title}
-      className='text-white bg-gray-600 hover:bg-gray-800'
+      className='text-white bg-gray-500 hover:bg-gray-600'
     >
       <FontAwesomeIcon icon={isCollapsed ? faChevronRight : faChevronDown} />
     </RoundedButton>
