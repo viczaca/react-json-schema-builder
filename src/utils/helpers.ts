@@ -1,6 +1,8 @@
 import _ from 'lodash/fp'
-import { Schema} from './types'
+import { typeToOptions } from './constants'
+import { Schema, SchemaType} from './types'
 
+export const getAllSchemaFields = _.keys
 export const getSchemaField = _.get
 export const getSchemaFields = _.pick
 export const getSchemaType = getSchemaField('type')
@@ -22,8 +24,8 @@ export const cleanSchemaFields = (schema: Schema) => {
   //getSchemaFields(getSchemaAvailableFieldsByType(getSchemaType(schema)), schema)
 
 }
-
-export const deleteSchemaProperty = (key: string) => _.omit([`properties.${key}`])
+export const deleteSchemaField = _.omit
+export const deleteSchemaProperty = (key: string) => deleteSchemaField([`properties.${key}`])
 export const addSchemaProperty = (schema: Schema) => setSchemaProperty(`__${_.now()}__`)({}, schema)
 
 export const isSchemaObject = (schema: Schema) => getSchemaType(schema) === 'object'
@@ -31,7 +33,10 @@ export const isSchemaArray = (schema: Schema) => getSchemaType(schema) === 'arra
 export const hasSchemaProperties = (schema: Schema) => !_.isEmpty(getSchemaProperties(schema))
 export const hasSchemaItems = (schema: Schema) => !_.isEmpty(getSchemaItems(schema))
 
+export const getSchemaMenuOptions = (type: SchemaType) => _.get(type, typeToOptions)
+
 export const stringToKey = _.snakeCase
 
 export const findOption = (value: string) => _.find(['value', value])
+
 

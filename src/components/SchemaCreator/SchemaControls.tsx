@@ -6,6 +6,8 @@ import { SchemaTypesSelect } from '../Select'
 import * as helpers from '../../utils/helpers'
 import { Schema } from '../../utils/types'
 import { AddButton, CollapseButton, DeleteButton, MenuButton } from '../Buttons'
+import { SchemaMenu } from '../SchemaMenu'
+import { Modal } from '../Modal'
 
 type Props = {
   schema: Schema
@@ -24,18 +26,21 @@ export const SchemaControls: React.FunctionComponent<Props> = ({
   onAdd,
   onCollapse
 }: Props) => {
+  const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false)
+
   return (
-    <div className='grid gap-2 grid-flow-col items-center'>
+    <div className='grid gap-2 grid-flow-col items-end'>
       <Input
         value={helpers.getSchemaTitle(schema)}
         onChange={(t) => onChange(helpers.setSchemaTitle(t, schema))}
         placeholder='Title'
+        label='Title'
       />
       <SchemaTypesSelect
         type={helpers.getSchemaType(schema)}
         onChange={(t) => onChange(helpers.setSchemaType(t, schema))}
       />
-      <div className='grid grid-flow-col items-center gap-1'>
+      <div className='grid grid-flow-col items-center gap-1 mb-2'>
         {_.isFunction(onCollapse) && (
           <CollapseButton
             onClick={onCollapse}
@@ -49,7 +54,15 @@ export const SchemaControls: React.FunctionComponent<Props> = ({
         {_.isFunction(onAdd) && (
           <AddButton onClick={onAdd} title={'Add schema'} />
         )}
-        <MenuButton onClick={console.log} title={'Open extra options menu'}/>
+        <MenuButton
+          onClick={() => setIsMenuOpen((o) => !o)}
+          title={'Open extra options menu'}
+        />
+        {isMenuOpen && (
+          <Modal onClose={() => setIsMenuOpen(false)}>
+            <SchemaMenu schema={schema} onChange={onChange} />
+          </Modal>
+        )}
       </div>
     </div>
   )
@@ -67,14 +80,15 @@ export const SchemaArrayControls: React.FunctionComponent<ArrayProps> = ({
   onAdd
 }: ArrayProps) => {
   return (
-    <div className='flex items-center'>
-      <label className='mr-2'>Items</label>
+    <div className='flex items-end'>
       <SchemaTypesSelect
         type={helpers.getSchemaType(schema)}
         onChange={(t) => onChange(helpers.setSchemaType(t, schema))}
       />
-      <div className='ml-2 grid grid-flow-col items-center gap-1'>
-        {_.isFunction(onAdd) && <AddButton onClick={onAdd} title={'Add schema'}/>}
+      <div className='ml-2 grid grid-flow-col items-center gap-1 mb-2'>
+        {_.isFunction(onAdd) && (
+          <AddButton onClick={onAdd} title={'Add schema'} />
+        )}
       </div>
     </div>
   )
