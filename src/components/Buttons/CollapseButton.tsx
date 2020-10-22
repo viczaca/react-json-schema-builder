@@ -7,12 +7,14 @@ import RoundedButton from './RoundedButton'
 type Props = {
   onClick: () => void
   isCollapsed?: boolean
+  title?: string
 }
 
-const CollapseButton: React.FunctionComponent<Props> = ({isCollapsed=false, onClick}: Props) => {
+const CollapseButton: React.FunctionComponent<Props> = ({isCollapsed=false, onClick, title}: Props) => {
   return (
     <RoundedButton
       onClick={onClick}
+      title={title}
       className='text-white bg-blue-500 hover:bg-blue-700'
     >
       <FontAwesomeIcon icon={isCollapsed ? faChevronRight : faChevronDown} />

@@ -24,22 +24,31 @@ export const SchemaControls: React.FunctionComponent<Props> = ({
   onAdd,
   onCollapse
 }: Props) => {
-
   return (
     <div className='grid gap-2 grid-flow-col items-center'>
       <Input
         value={helpers.getSchemaTitle(schema)}
         onChange={(t) => onChange(helpers.setSchemaTitle(t, schema))}
         placeholder='Title'
-        />
+      />
       <SchemaTypesSelect
         type={helpers.getSchemaType(schema)}
         onChange={(t) => onChange(helpers.setSchemaType(t, schema))}
-        />
+      />
       <div className='grid grid-flow-col items-center gap-1'>
-        {_.isFunction(onCollapse) && <CollapseButton onClick={onCollapse} isCollapsed={isCollapsed}/>}
-        {_.isFunction(onDelete) && <DeleteButton onClick={onDelete} />}
-        {_.isFunction(onAdd) && <AddButton onClick={onAdd} />}
+        {_.isFunction(onCollapse) && (
+          <CollapseButton
+            onClick={onCollapse}
+            isCollapsed={isCollapsed}
+            title={'Collapse schema'}
+          />
+        )}
+        {_.isFunction(onDelete) && (
+          <DeleteButton onClick={onDelete} title={'Delete schema'} />
+        )}
+        {_.isFunction(onAdd) && (
+          <AddButton onClick={onAdd} title={'Add schema'} />
+        )}
       </div>
     </div>
   )
@@ -64,7 +73,7 @@ export const SchemaArrayControls: React.FunctionComponent<ArrayProps> = ({
         onChange={(t) => onChange(helpers.setSchemaType(t, schema))}
       />
       <div className='ml-2 grid grid-flow-col items-center gap-1'>
-        {_.isFunction(onAdd) && <AddButton onClick={onAdd} />}
+        {_.isFunction(onAdd) && <AddButton onClick={onAdd} title={'Add schema'}/>}
       </div>
     </div>
   )

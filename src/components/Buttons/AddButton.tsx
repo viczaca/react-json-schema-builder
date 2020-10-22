@@ -5,12 +5,14 @@ import RoundedButton from './RoundedButton'
 
 type Props = {
   onClick: () => void
+  title?: string
 }
 
-const AddButton: React.FunctionComponent<Props> = ({ onClick }: Props) => {
+const AddButton: React.FunctionComponent<Props> = ({ onClick, title }: Props) => {
   return (
     <RoundedButton
       onClick={onClick}
+      title={title}
       className='text-white bg-blue-500 hover:bg-blue-700'
     >
       <FontAwesomeIcon icon={faPlus} />
