@@ -41,7 +41,7 @@ const SchemaCreator: React.FunctionComponent<Props> = ({
         }
         onChange={onChange}
       />
-      <div style={{display: `${isCollapsed ? 'none': 'block'}`}}>
+      <div className={`${isCollapsed ? 'hidden': 'block'}`}>
         {helpers.isSchemaObject(schema) && helpers.hasSchemaProperties(schema) && (
           <SchemaBox>
             <SchemaObjectProperties

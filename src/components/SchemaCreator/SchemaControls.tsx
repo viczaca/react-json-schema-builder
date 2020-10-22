@@ -5,7 +5,7 @@ import { Input } from '../Input'
 import { SchemaTypesSelect } from '../Select'
 import * as helpers from '../../utils/helpers'
 import { Schema } from '../../utils/types'
-import { AddButton, CollapseButton, DeleteButton } from '../Buttons'
+import { AddButton, CollapseButton, DeleteButton, MenuButton } from '../Buttons'
 
 type Props = {
   schema: Schema
@@ -49,6 +49,7 @@ export const SchemaControls: React.FunctionComponent<Props> = ({
         {_.isFunction(onAdd) && (
           <AddButton onClick={onAdd} title={'Add schema'} />
         )}
+        <MenuButton onClick={console.log} title={'Open extra options menu'}/>
       </div>
     </div>
   )
