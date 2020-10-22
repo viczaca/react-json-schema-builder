@@ -337,15 +337,30 @@ module.exports = {
       screen: '100vh',
       ...theme('spacing')
     }),
-    minHeight: {
+    minHeight: (theme)  => ({
       0: '0',
       full: '100%',
-      screen: '100vh'
-    },
-    minWidth: {
+      screen: '100vh',
+      ...theme('spacing')
+    }),
+    minWidth: (theme, {breakpoints}) => ({
       0: '0',
-      full: '100%'
-    },
+      none: 'none',
+      xs: "20rem",
+      sm: "24rem",
+      md: "28rem",
+      lg: "32rem",
+      xl: "36rem",
+      "2xl": "42rem",
+      "3xl": "48rem",
+      "4xl": "56rem",
+      "5xl": "64rem",
+      "6xl": "72rem",
+      full: '100%',
+      screen: '100vw',
+      ...theme('spacing'),
+      ...breakpoints(theme("screens"))
+    }),
     objectPosition: {
       bottom: 'bottom',
       center: 'center',

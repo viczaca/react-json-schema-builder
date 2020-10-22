@@ -30,7 +30,7 @@ const Input: React.FunctionComponent<Props> = ({
   }
 
   return (
-    <div>
+    <div className="w-full">
       <Label>{label}</Label>
       <input
         type={type}

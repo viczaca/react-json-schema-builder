@@ -40,26 +40,35 @@ export const schemaTypes: SchemaTypeOption[] = [
 export const stringSchemaOptions: StringSchemaFieldOption[] = [
   { value: 'description', label: 'Description', type: 'text' },
   { value: 'minLength', label: 'Min Length', type: 'number' },
+  { value: 'maxLength', label: 'Max Length', type: 'number' },
+  { value: 'enum', label: 'Options', type: 'creatable_multi_select' },
 ]
 
 export const numberSchemaOptions: NumberSchemaFieldOption[] = [
-  { value: 'description', label: 'Description', type: 'text' }
+  { value: 'description', label: 'Description', type: 'text' },
+  { value: 'minimum', label: 'Minimum', type: 'text' },
+  { value: 'maximum', label: 'Maximum', type: 'text' },
 ]
 
 export const integerSchemaOptions: IntegerSchemaFieldOption[] = [
-  { value: 'description', label: 'Description', type: 'text' }
+  { value: 'description', label: 'Description', type: 'text' },
+  { value: 'minimum', label: 'Minimum', type: 'text' },
+  { value: 'maximum', label: 'Maximum', type: 'text' },
 ]
 
 export const boolSchemaOptions: BoolSchemaFieldOption[] = [
-  { value: 'description', label: 'Description', type: 'text' }
+  { value: 'description', label: 'Description', type: 'text' },
 ]
 
 export const objectSchemaOptions: ObjectSchemaFieldOption[] = [
-  { value: 'description', label: 'Description', type: 'text' }
+  { value: 'description', label: 'Description', type: 'text' },
 ]
 
 export const arraySchemaOptions: ArraySchemaFieldOption[] = [
-  { value: 'description', label: 'Description', type: 'text' }
+  { value: 'description', label: 'Description', type: 'text' },
+  { value: 'minItems', label: 'Min Items', type: 'number' },
+  { value: 'maxItems', label: 'Max Items', type: 'number' },
+  { value: 'uniqueItems', label: 'Unique Items', type: 'boolean' },
 ]
 
 export const typeToOptions: Record<SchemaType, SchemaMenuOption[]> = {

@@ -1,10 +1,12 @@
 import React from 'react'
 import { Schema, SchemaFieldOptionType, SchemaMenuOption } from '../../utils/types'
-import {NumberItem, TextItem} from './SchemaMenuItem'
+import {BoolItem, CreatableMultiSelectItem, NumberItem, TextItem} from './SchemaMenuItem'
 
 const typeToItem: Record<SchemaFieldOptionType, React.FunctionComponent<any>> = {
   text: (props) => <TextItem {...props}/>,
   number: (props) => <NumberItem {...props}/>,
+  boolean: (props) => <BoolItem {...props}/>,
+  creatable_multi_select: (props) => <CreatableMultiSelectItem {...props}/>
 }
 
 
@@ -20,7 +22,7 @@ const SchemaMenuList: React.FunctionComponent<Props> = ({
   onChange
 }: Props) => {
   return (
-    <ul className="mb-4">
+    <ul className="mb-4 grid gap-2">
       {fields.map((field) => (
         <li key={field.value} className=''>
           {typeToItem[field.type]({schema, onChange, field})}

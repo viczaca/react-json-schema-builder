@@ -15,10 +15,10 @@ const SchemaTypesSelect: React.FunctionComponent<Props> = ({
   onChange
 }: Props) => {
   return (
-    <div>
+    <div className="w-full">
       <Label>Type</Label>
       <Select
-        className='w-48 shadow rounded border-gray-300 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300'
+        className='w-full shadow rounded border-gray-300 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300'
         options={schemaTypes}
         value={helpers.findOption(type)(schemaTypes)}
         onChange={(option: any) => onChange(option.value)}

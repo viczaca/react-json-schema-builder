@@ -27,7 +27,7 @@ const SchemaMenu: React.FunctionComponent<Props> = ({
   }, [schema, allOptions])
 
   return (
-    <div className="w-64">
+    <div className='min-w-md'>
       <SchemaMenuList
         fields={displayFields}
         schema={schema}

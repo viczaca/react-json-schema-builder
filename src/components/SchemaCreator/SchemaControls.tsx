@@ -29,41 +29,43 @@ export const SchemaControls: React.FunctionComponent<Props> = ({
   const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false)
 
   return (
-    <div className='grid gap-2 grid-flow-col items-end'>
-      <Input
-        value={helpers.getSchemaTitle(schema)}
-        onChange={(t) => onChange(helpers.setSchemaTitle(t, schema))}
-        placeholder='Title'
-        label='Title'
-      />
-      <SchemaTypesSelect
-        type={helpers.getSchemaType(schema)}
-        onChange={(t) => onChange(helpers.setSchemaType(t, schema))}
-      />
-      <div className='grid grid-flow-col items-center gap-1 mb-2'>
-        {_.isFunction(onCollapse) && (
+    <div className='flex flex-row items-end'>
+      <div className='grid grid-cols-2 gap-2 mr-2'>
+        <Input
+          value={helpers.getSchemaTitle(schema)}
+          onChange={(t) => onChange(helpers.setSchemaTitle(t, schema))}
+          placeholder='Title'
+          label='Title'
+        />
+        <SchemaTypesSelect
+          type={helpers.getSchemaType(schema)}
+          onChange={(t) => onChange(helpers.setSchemaType(t, schema))}
+        />
+      </div>
+      <div className='grid grid-flow-col items-center gap-1'>
+        {_.isFunction(onCollapse) ? (
           <CollapseButton
             onClick={onCollapse}
             isCollapsed={isCollapsed}
             title={'Collapse schema'}
           />
-        )}
-        {_.isFunction(onDelete) && (
-          <DeleteButton onClick={onDelete} title={'Delete schema'} />
-        )}
-        {_.isFunction(onAdd) && (
-          <AddButton onClick={onAdd} title={'Add schema'} />
-        )}
+        ): null}
         <MenuButton
           onClick={() => setIsMenuOpen((o) => !o)}
           title={'Open extra options menu'}
         />
-        {isMenuOpen && (
-          <Modal onClose={() => setIsMenuOpen(false)}>
-            <SchemaMenu schema={schema} onChange={onChange} />
-          </Modal>
-        )}
+        {_.isFunction(onDelete) ? (
+          <DeleteButton onClick={onDelete} title={'Delete schema'} />
+        ) : null}
+        {_.isFunction(onAdd) ? (
+          <AddButton onClick={onAdd} title={'Add schema'} />
+        ): null}
       </div>
+      {isMenuOpen ? (
+        <Modal onClose={() => setIsMenuOpen(false)} title={'Extra fields'}>
+          <SchemaMenu schema={schema} onChange={onChange} />
+        </Modal>
+      ): null}
     </div>
   )
 }
@@ -85,7 +87,7 @@ export const SchemaArrayControls: React.FunctionComponent<ArrayProps> = ({
         type={helpers.getSchemaType(schema)}
         onChange={(t) => onChange(helpers.setSchemaType(t, schema))}
       />
-      <div className='ml-2 grid grid-flow-col items-center gap-1 mb-2'>
+      <div className='ml-2'>
         {_.isFunction(onAdd) && (
           <AddButton onClick={onAdd} title={'Add schema'} />
         )}

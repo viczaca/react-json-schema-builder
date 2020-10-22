@@ -27,7 +27,7 @@ export type ArraySchemaField =
   | 'minItems'
   | 'maxItems'
 
-export type SchemaFieldOptionType = 'text' | 'number'
+export type SchemaFieldOptionType = 'text' | 'number' | 'boolean' | 'creatable_multi_select'
 
 export type SchemaFieldOption = {
   label: string,
