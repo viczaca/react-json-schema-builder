@@ -1,15 +1,16 @@
 import React from 'react'
+import _ from 'lodash/fp'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import RoundedButton from './RoundedButton'
 
 
 type Props = {
-  onClick: () => void
+  onClick?: () => void
   title?: string
 }
 
-const DeleteButton: React.FunctionComponent<Props> = ({ onClick, title }: Props) => {
+const DeleteButton: React.FunctionComponent<Props> = ({ onClick=_.noop, title }: Props) => {
   return (
     <RoundedButton
       onClick={onClick}

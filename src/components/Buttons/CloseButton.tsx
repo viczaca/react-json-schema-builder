@@ -1,6 +1,6 @@
 import React from 'react'
 import _ from 'lodash/fp'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import RoundedButton from './RoundedButton'
 
@@ -9,16 +9,16 @@ type Props = {
   title?: string
 }
 
-const AddButton: React.FunctionComponent<Props> = ({ onClick=_.noop, title }: Props) => {
+const CloseButton: React.FunctionComponent<Props> = ({ onClick=_.noop, title }: Props) => {
   return (
     <RoundedButton
       onClick={onClick}
       title={title}
-      className='text-white bg-blue-500 hover:bg-blue-700'
+      className='text-gray-800 bg-white hover:bg-gray-200'
     >
-      <FontAwesomeIcon icon={faPlus} />
+      <FontAwesomeIcon icon={faTimes} />
     </RoundedButton>
   )
 }
 
-export default AddButton
+export default CloseButton
