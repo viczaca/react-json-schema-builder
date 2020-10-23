@@ -11,18 +11,22 @@ import { Modal } from '../Modal'
 
 type Props = {
   schema: Schema
+  schemakey: string
   isCollapsed?: boolean
   onDelete?: () => void
   onAdd?: () => void
   onCollapse?: () => void
+  onChangeKey?: (key: string) => void
   onChange: (schema: Schema) => void
 }
 
 export const SchemaControls: React.FunctionComponent<Props> = ({
   schema,
+  schemakey,
   isCollapsed,
   onDelete,
   onChange,
+  onChangeKey,
   onAdd,
   onCollapse
 }: Props) => {
@@ -30,7 +34,7 @@ export const SchemaControls: React.FunctionComponent<Props> = ({
 
   return (
     <div className='flex flex-row items-end'>
-      <div className='grid grid-cols-2 gap-2 mr-2'>
+      <div className='grid grid-flow-col gap-2 mr-2'>
         <Input
           value={helpers.getSchemaTitle(schema)}
           onChange={(t) => onChange(helpers.setSchemaTitle(t, schema))}
@@ -39,8 +43,16 @@ export const SchemaControls: React.FunctionComponent<Props> = ({
         />
         <SchemaTypesSelect
           type={helpers.getSchemaType(schema)}
-          onChange={(t) => onChange(helpers.setSchemaType(t, schema))}
+          onChange={(t) => onChange(helpers.setSchemaTypeAndRemoveWrongFields(t, schema))}
         />
+        {_.isFunction(onChangeKey) ? (
+          <Input
+            value={schemakey}
+            onChange={onChangeKey}
+            placeholder='Key'
+            label='Key'
+          />
+        ) : null}
       </div>
       <div className='grid grid-flow-col items-center gap-1'>
         {_.isFunction(onCollapse) ? (
@@ -49,7 +61,7 @@ export const SchemaControls: React.FunctionComponent<Props> = ({
             isCollapsed={isCollapsed}
             title={'Collapse schema'}
           />
-        ): null}
+        ) : null}
         <MenuButton
           onClick={() => setIsMenuOpen((o) => !o)}
           title={'Open extra options menu'}
@@ -59,13 +71,13 @@ export const SchemaControls: React.FunctionComponent<Props> = ({
         ) : null}
         {_.isFunction(onAdd) ? (
           <AddButton onClick={onAdd} title={'Add schema'} />
-        ): null}
+        ) : null}
       </div>
       {isMenuOpen ? (
         <Modal onClose={() => setIsMenuOpen(false)} title={'Extra fields'}>
           <SchemaMenu schema={schema} onChange={onChange} />
         </Modal>
-      ): null}
+      ) : null}
     </div>
   )
 }
@@ -81,17 +93,28 @@ export const SchemaArrayControls: React.FunctionComponent<ArrayProps> = ({
   onChange,
   onAdd
 }: ArrayProps) => {
+  const [isMenuOpen, setIsMenuOpen] = React.useState<boolean>(false)
+
   return (
     <div className='flex items-end'>
       <SchemaTypesSelect
         type={helpers.getSchemaType(schema)}
-        onChange={(t) => onChange(helpers.setSchemaType(t, schema))}
+        onChange={(t) => onChange(helpers.setSchemaTypeAndRemoveWrongFields(t, schema))}
       />
-      <div className='ml-2'>
-        {_.isFunction(onAdd) && (
+      <div className='ml-2 grid grid-flow-col gap-1'>
+        <MenuButton
+          onClick={() => setIsMenuOpen((o) => !o)}
+          title={'Open extra options menu'}
+        />
+        {_.isFunction(onAdd) ? (
           <AddButton onClick={onAdd} title={'Add schema'} />
-        )}
+        ) : null}
       </div>
+      {isMenuOpen ? (
+        <Modal onClose={() => setIsMenuOpen(false)} title={'Extra fields'}>
+          <SchemaMenu schema={schema} onChange={onChange} />
+        </Modal>
+      ) : null}
     </div>
   )
 }

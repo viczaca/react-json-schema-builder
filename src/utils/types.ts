@@ -10,28 +10,59 @@ export type SchemaType =
 
 export type SchemaTypeOption = { value: SchemaType; label: string }
 
+export type CommonSchemaField = 'description'
+
 export type StringSchemaField =
-  | 'description'
+  | CommonSchemaField
   | 'enum'
   | 'minLength'
   | 'maxLength'
   | 'pattern'
   | 'format'
-export type NumberSchemaField = 'description' | 'minimum' | 'maximum'
-export type IntegerSchemaField = 'description' | 'minimum' | 'maximum'
-export type BoolSchemaField = 'description'
-export type ObjectSchemaField = 'description' | 'required'
+export type NumberSchemaField =
+  | CommonSchemaField
+  | 'minimum'
+  | 'maximum'
+  | 'multipleOf'
+export type IntegerSchemaField =
+  | CommonSchemaField
+  | 'minimum'
+  | 'maximum'
+  | 'multipleOf'
+export type BoolSchemaField = CommonSchemaField
+export type ObjectSchemaField = CommonSchemaField | 'required'
 export type ArraySchemaField =
-  | 'description'
+  | CommonSchemaField
   | 'uniqueItems'
   | 'minItems'
   | 'maxItems'
 
-export type SchemaFieldOptionType = 'text' | 'number' | 'boolean' | 'multi_creatable'
+export type SchemaFieldOptionType =
+  | 'text'
+  | 'number'
+  | 'boolean'
+  | 'multi_creatable'
+  | 'select'
+  | 'required'
+
+export type CommonValidSchemaField = CommonSchemaField | 'title' | 'type' 
+export type StringValidSchemaField = StringSchemaField | CommonValidSchemaField
+export type NumberValidSchemaField = NumberSchemaField | CommonValidSchemaField
+export type IntegerValidSchemaField =
+  | IntegerSchemaField
+  | CommonValidSchemaField
+export type BoolValidSchemaField = BoolSchemaField | CommonValidSchemaField
+export type ArrayValidSchemaField = ArraySchemaField | CommonValidSchemaField | 'items'
+export type ObjectValidSchemaField = ObjectSchemaField | CommonValidSchemaField | 'properties'
 
 export type SchemaFieldOption = {
-  label: string,
+  label: string
   type: SchemaFieldOptionType
+  optionList?: any
+}
+
+export type CommonSchemaFieldOption = SchemaFieldOption & {
+  value: CommonSchemaField
 }
 
 export type StringSchemaFieldOption = SchemaFieldOption & {

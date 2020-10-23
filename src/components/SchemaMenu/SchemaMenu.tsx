@@ -22,7 +22,7 @@ const SchemaMenu: React.FunctionComponent<Props> = ({
   ])
 
   const displayFields = React.useMemo(() => {
-    const fields = helpers.getAllSchemaFields(schema)
+    const fields = helpers.getAllSchemaKeys(schema)
     return _.filter((item) => _.includes(item.value, fields), allOptions)
   }, [schema, allOptions])
 
@@ -34,7 +34,7 @@ const SchemaMenu: React.FunctionComponent<Props> = ({
         onChange={onChange}
       />
       <Select
-        className='w-full shadow rounded border-gray-300 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300'
+        className='min-w-48 max-w-lg w-full shadow rounded border-gray-300 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300'
         options={_.difference(allOptions, displayFields)}
         value={null}
         onChange={(option: any) =>
