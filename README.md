@@ -4,6 +4,8 @@
 
 [![NPM](https://img.shields.io/npm/v/react-json-schema-builder.svg)](https://www.npmjs.com/package/react-json-schema-builder) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+**[Demo](https://viczaca.github.io/react-json-schema-builder/)**
+
 ## Install
 
 ```bash

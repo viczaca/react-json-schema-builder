@@ -5,7 +5,7 @@
   "type": "object",
   "properties": {
     "firstName": {
-      "title": "Nombre",
+      "title": "Name",
       "type": "string"
     },
     "lastName": {
