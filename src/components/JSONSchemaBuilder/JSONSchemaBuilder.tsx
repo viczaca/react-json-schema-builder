@@ -1,5 +1,4 @@
 import React from 'react'
-import _ from 'lodash/fp'
 
 import {SchemaCreator} from '../SchemaCreator'
 import { Schema } from '../../utils/types'
