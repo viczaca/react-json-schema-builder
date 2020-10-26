@@ -11,12 +11,18 @@ import {
   NumberValidSchemaField,
   ObjectSchemaFieldOption,
   ObjectValidSchemaField,
+  Schema,
   SchemaMenuOption,
   SchemaType,
   SchemaTypeOption,
   StringSchemaFieldOption,
   StringValidSchemaField
 } from './types'
+
+export const defaultSchema: Schema = {
+  type: 'object',
+  properties: {}
+}
 
 export const schemaTypes: SchemaTypeOption[] = [
   {
