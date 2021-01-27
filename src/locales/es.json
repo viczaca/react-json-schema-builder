@@ -27,7 +27,7 @@
         "maxItems": "Max elementos",
         "uniqueItems": "Elementos únicos"
     },
-    "description1": "Descripción",
+    "description": "Descripción",
     "options": "Opciones",
     "pattern": "Patrón",
     "format": "Formato",
@@ -37,5 +37,6 @@
     "extraOptions": "Abrir opciones extra",
     "delete": "Eliminar esquema",
     "add": "Añadir esquema",
-    "extraFields": "Campos extra"
+    "extraFields": "Campos extra",
+    "addFields": "Añadir campos"
 }

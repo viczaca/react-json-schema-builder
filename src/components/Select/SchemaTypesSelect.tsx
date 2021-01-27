@@ -17,7 +17,7 @@ const SchemaTypesSelect: React.FunctionComponent<Props> = ({
   onChange
 }: Props) => {
   const {t} = useTranslation()
-  const options = React.useMemo(() => _.map((item) => ({...item, label: t(item.label)}), schemaTypes), [schemaTypes,t])
+  const options = React.useMemo(() => _.map((item) => ({...item, label: t(item.label)}), schemaTypes), [schemaTypes])
   return (
     <div>
       <Label>{t('type')}</Label>

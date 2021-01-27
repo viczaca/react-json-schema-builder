@@ -27,7 +27,7 @@
         "maxItems": "Max Items",
         "uniqueItems": "Unique Items"
     },
-    "description1": "Description",
+    "description": "Description",
     "options": "Options",
     "pattern": "Pattern",
     "format": "Format",
@@ -37,5 +37,6 @@
     "extraOptions": "Open extra options menu",
     "delete": "Delete schema",
     "add": "Add schema",
-    "extraFields": "Extra fields"
+    "extraFields": "Extra fields",
+    "addFields": "Add fields"
 }

@@ -119,8 +119,8 @@ const commonSchemaOptions: CommonSchemaFieldOption[] = [
 
 export const stringSchemaOptions: StringSchemaFieldOption[] = [
   ...commonSchemaOptions,
-  { value: 'minLength', label: 'minLength', type: 'number' },
-  { value: 'maxLength', label: 'maxLength', type: 'number' },
+  { value: 'minLength', label: 'requirement.minLength', type: 'number' },
+  { value: 'maxLength', label: 'requirement.maxLength', type: 'number' },
   { value: 'enum', label: 'options', type: 'multi_creatable' },
   { value: 'pattern', label: 'pattern', type: 'text' },
   {
