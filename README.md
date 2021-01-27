@@ -53,6 +53,10 @@ You should now be up and running with live browser reloading of the example webs
 
 When you're done working on your changes, submit a PR with the details and include a screenshot if you've changed anything visually.
 
+For add new languajes:
+1.  Create a json on src/locales/new_lang.json with the new translations
+2.  Import on src\utils\i18n.ts the new json and append it to resources
+
 ## License
 
 MIT © [viczaca](https://github.com/viczaca)
