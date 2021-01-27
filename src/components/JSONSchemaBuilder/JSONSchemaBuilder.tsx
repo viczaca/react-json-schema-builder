@@ -4,6 +4,7 @@ import _ from 'lodash/fp'
 import {SchemaCreator} from '../SchemaCreator'
 import { Schema } from '../../utils/types'
 import { defaultSchema } from '../../utils/constants'
+import '../../tailwind.styles.css'
 
 type Props = {
   schema: Schema
