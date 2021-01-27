@@ -30,6 +30,7 @@ const Example = () => {
 
   return (
     <JSONSchemaBuilder 
+      locale={"es"} 
       schema={schema} 
       onChange={setSchema} 
     />)
@@ -47,11 +48,15 @@ To setup and run a local copy:
 1.  Clone this repo with `git clone https://github.com/viczaca/react-json-schema-builder`
 2.  Run `yarn install` in the root folder
 3.  Run `yarn install` in the example folder
-4.  In seperate terminal windows, run `yarn start` in the root and example folders.
+4.  In separate terminal windows, run `yarn start` in the root and example folders.
 
 You should now be up and running with live browser reloading of the example website while you work on source files and components in the /src folder.
 
 When you're done working on your changes, submit a PR with the details and include a screenshot if you've changed anything visually.
+
+In order to add new languages:
+1.  Create a json in src/locales/new_lang.json with the new translations
+2.  Import in src\utils\i18n.ts the new json and append it to resources
 
 ## License
 

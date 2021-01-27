@@ -27,54 +27,54 @@ export const defaultSchema: Schema = {
 export const schemaTypes: SchemaTypeOption[] = [
   {
     value: 'string',
-    label: 'Text'
+    label: 'schemaTypes.text',
   },
   {
     value: 'integer',
-    label: 'Integer'
+    label: 'schemaTypes.integer',
   },
   {
     value: 'number',
-    label: 'Decimal'
+    label: 'schemaTypes.decimal',
   },
   {
     value: 'boolean',
-    label: 'Boolean'
+    label: 'schemaTypes.boolean',
   },
   {
     value: 'object',
-    label: 'Object'
+    label: 'schemaTypes.object',
   },
   {
     value: 'array',
-    label: 'List'
+    label: 'schemaTypes.array',
   }
 ]
 
 export const formatOptions = [
   {
     value: 'date-time',
-    label: 'Date'
+    label: 'formatOptions.date',
   },
   {
     value: 'email',
-    label: 'Email'
+    label: 'formatOptions.email',
   },
   {
     value: 'hostname',
-    label: 'Hostname'
+    label: 'formatOptions.hostname',
   },
   {
     value: 'ipv4',
-    label: 'IPv4'
+    label: 'formatOptions.ipv4',
   },
   {
     value: 'ipv6',
-    label: 'IPv6'
+    label: 'formatOptions.ipv6',
   },
   {
     value: 'uri',
-    label: 'URI'
+    label: 'formatOptions.uri',
   }
 ]
 
@@ -114,18 +114,18 @@ export const objectValidSchemaProperties: ObjectValidSchemaField[] = [
 ]
 
 const commonSchemaOptions: CommonSchemaFieldOption[] = [
-  { value: 'description', label: 'Description', type: 'text' }
+  { value: 'description', label: 'description', type: 'text' }
 ]
 
 export const stringSchemaOptions: StringSchemaFieldOption[] = [
   ...commonSchemaOptions,
-  { value: 'minLength', label: 'Min Length', type: 'number' },
-  { value: 'maxLength', label: 'Max Length', type: 'number' },
-  { value: 'enum', label: 'Options', type: 'multi_creatable' },
-  { value: 'pattern', label: 'Pattern', type: 'text' },
+  { value: 'minLength', label: 'requirement.minLength', type: 'number' },
+  { value: 'maxLength', label: 'requirement.maxLength', type: 'number' },
+  { value: 'enum', label: 'options', type: 'multi_creatable' },
+  { value: 'pattern', label: 'pattern', type: 'text' },
   {
     value: 'format',
-    label: 'Format',
+    label: 'format',
     type: 'select',
     optionList: formatOptions
   }
@@ -133,16 +133,16 @@ export const stringSchemaOptions: StringSchemaFieldOption[] = [
 
 export const numberSchemaOptions: NumberSchemaFieldOption[] = [
   ...commonSchemaOptions,
-  { value: 'minimum', label: 'Minimum', type: 'number' },
-  { value: 'maximum', label: 'Maximum', type: 'number' },
-  { value: 'multipleOf', label: 'Multiple of', type: 'number' }
+  { value: 'minimum', label: 'requirement.minimum', type: 'number' },
+  { value: 'maximum', label: 'requirement.maximum', type: 'number' },
+  { value: 'multipleOf', label: 'requirement.multipleOf', type: 'number' }
 ]
 
 export const integerSchemaOptions: IntegerSchemaFieldOption[] = [
   ...commonSchemaOptions,
-  { value: 'minimum', label: 'Minimum', type: 'number' },
-  { value: 'maximum', label: 'Maximum', type: 'number' },
-  { value: 'multipleOf', label: 'Multiple of', type: 'number' }
+  { value: 'minimum', label: 'requirement.minimum', type: 'number' },
+  { value: 'maximum', label: 'requirement.maximum', type: 'number' },
+  { value: 'multipleOf', label: 'requirement.multipleOf', type: 'number' }
 ]
 
 export const boolSchemaOptions: BoolSchemaFieldOption[] = [
@@ -151,14 +151,14 @@ export const boolSchemaOptions: BoolSchemaFieldOption[] = [
 
 export const objectSchemaOptions: ObjectSchemaFieldOption[] = [
   ...commonSchemaOptions,
-  { value: 'required', label: 'Required fields', type: 'required' }
+  { value: 'required', label: 'requirement.required', type: 'required' }
 ]
 
 export const arraySchemaOptions: ArraySchemaFieldOption[] = [
   ...commonSchemaOptions,
-  { value: 'minItems', label: 'Min Items', type: 'number' },
-  { value: 'maxItems', label: 'Max Items', type: 'number' },
-  { value: 'uniqueItems', label: 'Unique Items', type: 'boolean' }
+  { value: 'minItems', label: 'requirement.minItems', type: 'number' },
+  { value: 'maxItems', label: 'requirement.maxItems', type: 'number' },
+  { value: 'uniqueItems', label: 'requirement.uniqueItems', type: 'boolean' }
 ]
 
 export const typeToOptions: Record<SchemaType, SchemaMenuOption[]> = {

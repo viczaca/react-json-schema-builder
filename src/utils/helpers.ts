@@ -82,7 +82,7 @@ export const hasSchemaProperties = (schema: Schema) =>
 export const hasSchemaItems = (schema: Schema) =>
   !_.isEmpty(getSchemaItems(schema))
 
-export const getSchemaMenuOptions = (type: SchemaType) =>
+export const getSchemaMenuOptions = (type: SchemaType) => 
   _.get(type, typeToOptions)
 
 export const findOption = (value: string) => _.find(['value', value])

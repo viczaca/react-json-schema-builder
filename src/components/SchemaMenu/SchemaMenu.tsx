@@ -5,6 +5,7 @@ import { Schema, SchemaMenuOption } from '../../utils/types'
 import * as helpers from '../../utils/helpers'
 import Select from 'react-select'
 import SchemaMenuList from './SchemaMenuList'
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   schema: Schema
@@ -15,9 +16,11 @@ const SchemaMenu: React.FunctionComponent<Props> = ({
   schema,
   onChange
 }: Props) => {
+  const {t} = useTranslation()
   const type = helpers.getSchemaType(schema)
-
-  const allOptions = React.useMemo(() => helpers.getSchemaMenuOptions(type), [
+  const allOptions = React.useMemo(() => 
+    _.map((item) => ({...item, label: t(item.label)}), helpers.getSchemaMenuOptions(type))
+  , [
     type
   ])
 
@@ -25,7 +28,6 @@ const SchemaMenu: React.FunctionComponent<Props> = ({
     const fields = helpers.getAllSchemaKeys(schema)
     return _.filter((item) => _.includes(item.value, fields), allOptions)
   }, [schema, allOptions])
-
   return (
     <div className='min-w-md'>
       <SchemaMenuList
@@ -46,7 +48,7 @@ const SchemaMenu: React.FunctionComponent<Props> = ({
             )
           )
         }
-        placeholder='Add fields'
+        placeholder={t('addFields')}
       />
     </div>
   )

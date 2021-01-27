@@ -11,7 +11,7 @@ const App = () => {
   const [schema, setSchema] = React.useState<Schema>(jsonSchema)
 
   return <div className="mx-auto grid gap-4 grid-flow-col p-8">
-    <JSONSchemaBuilder schema={schema} onChange={setSchema} />
+    <JSONSchemaBuilder locale={"es"} schema={schema} onChange={setSchema} />
     <JSONPretty data={schema}/>
   </div>
 }

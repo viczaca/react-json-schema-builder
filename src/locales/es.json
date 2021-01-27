@@ -1,0 +1,42 @@
+{
+    "type": "Tipo",
+    "schemaTypes": {
+        "text": "Texto",
+        "integer": "Nº entero",
+        "decimal": "Nº decimal",
+        "boolean": "Booleano",
+        "object": "Objecto",
+        "array": "Lista"
+    },
+    "formatOptions": {
+        "date": "fecha",
+        "email": "Email",
+        "hostname": "Hostname",
+        "ipv4": "IPv4",
+        "ipv6": "IPv6",
+        "uri": "URI"
+    },
+    "requirement": {
+        "minLength": "Longitud Min",
+        "maxLength": "Longitud Max",
+        "minimum": "Mínimo",
+        "maximum": "Máximo",
+        "multipleOf": "Multiple de",
+        "required": "Campos requeridos",
+        "minItems": "Min elementos",
+        "maxItems": "Max elementos",
+        "uniqueItems": "Elementos únicos"
+    },
+    "description": "Descripción",
+    "options": "Opciones",
+    "pattern": "Patrón",
+    "format": "Formato",
+    "title": "Título",
+    "key": "Clave",
+    "collapse": "Contraer esquema",
+    "extraOptions": "Abrir opciones extra",
+    "delete": "Eliminar esquema",
+    "add": "Añadir esquema",
+    "extraFields": "Campos extra",
+    "addFields": "Añadir campos"
+}
