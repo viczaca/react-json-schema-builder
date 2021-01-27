@@ -1,6 +1,7 @@
 import React from 'react'
 import CreatableSelect from 'react-select/creatable'
 import Select from 'react-select'
+import _ from 'lodash/fp'
 
 import { Schema, SchemaMenuOption } from '../../utils/types'
 import * as helpers from '../../utils/helpers'
@@ -8,6 +9,7 @@ import { Input } from '../Input'
 import { DeleteButton } from '../Buttons'
 import { Checkbox } from '../Checkbox'
 import { Label } from '../Label'
+import { useTranslation } from 'react-i18next'
 
 type ItemProps = {
   onDelete: () => void
@@ -39,15 +41,17 @@ export const TextItem: React.FunctionComponent<Props> = ({
   schema,
   onChange
 }: Props) => {
+  const { t } = useTranslation()
+
   return (
     <Item
       onDelete={() => onChange(helpers.deleteSchemaField(field.value, schema))}
     >
       <Input
-        label={field.label}
+        label={t(field.label)}
         value={helpers.getSchemaField(field.value, schema) as string}
-        onChange={(t) =>
-          onChange(helpers.setSchemaField(field.value, t, schema))
+        onChange={(text) =>
+          onChange(helpers.setSchemaField(field.value, text, schema))
         }
       />
     </Item>
@@ -59,16 +63,20 @@ export const NumberItem: React.FunctionComponent<Props> = ({
   schema,
   onChange
 }: Props) => {
+  const { t } = useTranslation()
+
   return (
     <Item
       onDelete={() => onChange(helpers.deleteSchemaField(field.value, schema))}
     >
       <Input
-        label={field.label}
+        label={t(field.label)}
         type={'number'}
         value={helpers.getSchemaField(field.value, schema) as string}
-        onChange={(t) =>
-          onChange(helpers.setSchemaField(field.value, parseInt(t, 10), schema))
+        onChange={(text) =>
+          onChange(
+            helpers.setSchemaField(field.value, parseInt(text, 10), schema)
+          )
         }
       />
     </Item>
@@ -80,15 +88,16 @@ export const BoolItem: React.FunctionComponent<Props> = ({
   schema,
   onChange
 }: Props) => {
+  const { t } = useTranslation()
   return (
     <Item
       onDelete={() => onChange(helpers.deleteSchemaField(field.value, schema))}
     >
       <Checkbox
-        label={field.label}
+        label={t(field.label)}
         value={helpers.getSchemaField(field.value, schema) as boolean}
-        onChange={(t) =>
-          onChange(helpers.setSchemaField(field.value, t, schema))
+        onChange={(text) =>
+          onChange(helpers.setSchemaField(field.value, text, schema))
         }
       />
     </Item>
@@ -100,6 +109,7 @@ export const CreatableMultiSelectItem: React.FunctionComponent<Props> = ({
   schema,
   onChange
 }: Props) => {
+  const { t } = useTranslation()
   const selected = helpers.getSchemaField(field.value, schema)
 
   const allOptions = React.useMemo(
@@ -112,12 +122,13 @@ export const CreatableMultiSelectItem: React.FunctionComponent<Props> = ({
       onDelete={() => onChange(helpers.deleteSchemaField(field.value, schema))}
     >
       <div className='w-full'>
-        <Label>{field.label}</Label>
+        <Label>{t(field.label)}</Label>
         <CreatableSelect
           isMulti
           className='min-w-48 max-w-lg w-full shadow rounded border-gray-300 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300'
           options={allOptions}
           value={allOptions}
+          noOptionsMessage={() => t('noOptions')}
           onChange={(options: any) => {
             onChange(
               helpers.setSchemaField(
@@ -127,7 +138,7 @@ export const CreatableMultiSelectItem: React.FunctionComponent<Props> = ({
               )
             )
           }}
-          placeholder='Options'
+          placeholder={t('options')}
         />
       </div>
     </Item>
@@ -139,10 +150,15 @@ export const SelectItem: React.FunctionComponent<Props> = ({
   schema,
   onChange
 }: Props) => {
+  const { t } = useTranslation()
+  const options = React.useMemo(
+    () => helpers.translateLabels(t, field.optionList),
+    [field.optionList, t]
+  )
   const option = helpers.getSchemaField(field.value, schema)
   const selected = React.useMemo(
-    () => helpers.findOption(option as string)(field.optionList),
-    [field.optionList, option]
+    () => helpers.findOption(option as string)(options),
+    [options, option]
   )
 
   return (
@@ -150,15 +166,16 @@ export const SelectItem: React.FunctionComponent<Props> = ({
       onDelete={() => onChange(helpers.deleteSchemaField(field.value, schema))}
     >
       <div className='w-full'>
-        <Label>{field.label}</Label>
+        <Label>{t(field.label)}</Label>
         <Select
           className='min-w-48 max-w-lg w-full shadow rounded border-gray-300 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300'
-          options={field.optionList}
+          options={options}
+          noOptionsMessage={() => t('noOptions')}
           value={selected}
           onChange={(option: any) => {
             onChange(helpers.setSchemaField(field.value, option.value, schema))
           }}
-          placeholder='Options'
+          placeholder={t('options')}
         />
       </div>
     </Item>
@@ -173,6 +190,7 @@ export const RequiredMultiSelectItem: React.FunctionComponent<Props> = ({
   if (!helpers.isSchemaObject(schema) || !helpers.hasSchemaProperties(schema))
     return null
 
+  const { t } = useTranslation()
   const allOptions = helpers.schemaPropertiesAsOptions(schema)
   const requiredOptions = helpers.schemaRequiredPropertiesAsOptions(schema)
 
@@ -181,11 +199,12 @@ export const RequiredMultiSelectItem: React.FunctionComponent<Props> = ({
       onDelete={() => onChange(helpers.deleteSchemaField(field.value, schema))}
     >
       <div className='w-full'>
-        <Label>{field.label}</Label>
+        <Label>{t(field.label)}</Label>
         <Select
           isMulti
           className='min-w-48 max-w-lg w-full shadow rounded border-gray-300 bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300'
           options={allOptions}
+          noOptionsMessage={() => t('noOptions')}
           value={requiredOptions}
           onChange={(options: any) => {
             onChange(
@@ -196,7 +215,7 @@ export const RequiredMultiSelectItem: React.FunctionComponent<Props> = ({
               )
             )
           }}
-          placeholder='Options'
+          placeholder={t('options')}
         />
       </div>
     </Item>

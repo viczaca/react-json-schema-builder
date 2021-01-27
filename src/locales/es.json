@@ -5,11 +5,11 @@
         "integer": "Nº entero",
         "decimal": "Nº decimal",
         "boolean": "Booleano",
-        "object": "Objecto",
+        "object": "Objeto",
         "array": "Lista"
     },
     "formatOptions": {
-        "date": "fecha",
+        "date": "Fecha",
         "email": "Email",
         "hostname": "Hostname",
         "ipv4": "IPv4",
@@ -29,6 +29,7 @@
     },
     "description": "Descripción",
     "options": "Opciones",
+    "noOptions": "Sin opciones",
     "pattern": "Patrón",
     "format": "Formato",
     "title": "Título",
