@@ -4,7 +4,7 @@ import { schemaTypes } from '../../utils/constants'
 import * as helpers from '../../utils/helpers'
 import { SchemaType } from '../../utils/types'
 import { Label } from '../Label'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 import _ from 'lodash/fp'
 
 type Props = {
@@ -16,8 +16,11 @@ const SchemaTypesSelect: React.FunctionComponent<Props> = ({
   type,
   onChange
 }: Props) => {
-  const {t} = useTranslation()
-  const options = React.useMemo(() => _.map((item) => ({...item, label: t(item.label)}), schemaTypes), [schemaTypes])
+  const { t } = useTranslation()
+  const options = React.useMemo(() => helpers.translateLabels(t, schemaTypes), [
+    schemaTypes,
+    t
+  ])
   return (
     <div>
       <Label>{t('type')}</Label>

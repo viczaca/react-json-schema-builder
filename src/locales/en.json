@@ -29,6 +29,7 @@
     },
     "description": "Description",
     "options": "Options",
+    "noOptions": "No options",
     "pattern": "Pattern",
     "format": "Format",
     "title": "Title",

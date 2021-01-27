@@ -1,6 +1,6 @@
 {
   "name": "react-json-schema-builder",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Allows to build a json schema interactively.",
   "author": "viczaca",
   "license": "MIT",

@@ -39,7 +39,7 @@ export const SchemaControls: React.FunctionComponent<Props> = ({
       <div className='grid grid-flow-col gap-2 mr-2'>
         <Input
           value={helpers.getSchemaTitle(schema)}
-          onChange={(t) => onChange(helpers.setSchemaTitle(t, schema))}
+          onChange={(title) => onChange(helpers.setSchemaTitle(title, schema))}
           placeholder={t('title')}
           label={t('title')}
         />

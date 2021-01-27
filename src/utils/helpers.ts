@@ -74,7 +74,7 @@ export const isSchemaArray = (schema: Schema) =>
   getSchemaType(schema) === 'array'
 
 export const isFieldRequired = (key: string) =>
-   _.flow([getSchemaRequired, _.contains(key)])
+  _.flow([getSchemaRequired, _.contains(key)])
 
 export const hasSchemaProperties = (schema: Schema) =>
   !_.isEmpty(getSchemaProperties(schema))
@@ -82,7 +82,7 @@ export const hasSchemaProperties = (schema: Schema) =>
 export const hasSchemaItems = (schema: Schema) =>
   !_.isEmpty(getSchemaItems(schema))
 
-export const getSchemaMenuOptions = (type: SchemaType) => 
+export const getSchemaMenuOptions = (type: SchemaType) =>
   _.get(type, typeToOptions)
 
 export const findOption = (value: string) => _.find(['value', value])
@@ -114,7 +114,8 @@ export const schemaRequiredPropertiesAsOptions = _.flow(
   fieldsToOptions
 )
 
-export const getValidFields = (type: SchemaType) => _.get(type, typeToValidFields)
+export const getValidFields = (type: SchemaType) =>
+  _.get(type, typeToValidFields)
 
 export const removeWrongFields = (schema: Schema) => {
   const type = getSchemaType(schema)
@@ -122,4 +123,10 @@ export const removeWrongFields = (schema: Schema) => {
   return getSchemaFields(fields, schema)
 }
 
-export const setSchemaTypeAndRemoveWrongFields = _.flow([setSchemaType, removeWrongFields])
+export const setSchemaTypeAndRemoveWrongFields = _.flow([
+  setSchemaType,
+  removeWrongFields
+])
+
+export const translateLabels = (t: (text: string) => string, list: any[]) =>
+  _.map((item) => ({ ...item, label: t(item.label) }), list)
